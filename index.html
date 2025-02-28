@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Prêts d'honneur Initiative Oise Sud</title>
+</head>
+
+<body>
+  <table border="1">
+    <caption>Aide à la sollicitation des prêts d'honneur</caption>
+    <thead>
+
+    </thead>
+    <tbody>
+      <tr>
+        <th>Type de projet</th>
+        <td>
+          <input type="radio" name="projet" value="creation"> Création
+          <input type="radio" name="projet" value="reprise"> Reprise
+          <input type="radio" name="projet" value="developpement"> Développement
+          <input type="radio" name="projet" value="croissance"> Croissance
+        </td>
+      </tr>
+      <tr id="salaries">
+        <th>Nombre de salariés</th>
+        <td>
+          <input type="radio" name="salaries" value="0-3"> 0 à 3
+          <input type="radio" name="salaries" value="4-10"> 4 à 10
+          <input type="radio" name="salaries" value="11+"> 11 et plus
+        </td>
+      </tr>
+      <tr id="transmission" style="display:none;">
+        <th>S'agit-il d'une transmission d'entreprise ?</th>
+        <td>
+          <input type="radio" name="transmission" value="oui"> Oui
+          <input type="radio" name="transmission" value="non"> Non
+        </td>
+      </tr>
+      <tr id="age">
+        <th>Âge du porteur de projet</th>
+        <td>
+          <input type="radio" name="age" value="18-29"> 18-29 ans
+          <input type="radio" name="age" value="30+"> 30 ans et plus
+        </td>
+      </tr>
+      <tr id="montant-apport" style="display: none;">
+        <th>Montant de l'apport</th>
+        <td>
+          <input type="radio" name="apport" value="0-10000"> 0 - 10 000€
+          <input type="radio" name="apport" value="10001+"> Supérieur à 10 000€
+        </td>
+      </tr>
+      
+      <tr>
+        <th>Quelle est la communauté de commune ou se situe votre siege sociale ?</th>
+        <td>
+          <select id="communaute_commune">
+            <option value="default">Choisissez la communauté de commune</option>
+            <option value="ACSO">ACSO</option>
+            <option value="CCAC">CCAC</option>
+            <option value="CCSSO">CCSO</option>
+            <option value="Thélloise">Thélloise</option>
+            <option value="Vallée Dorée">Vallée Dorée</option>
+          </select>
+        </td>
+      </tr>
+      <tr id="phq">
+        <th>Le porteur de projet habite-t-il ou s'installe-t-il en quartier prioritaire ?</th>
+        <td>
+          <input type="radio" name="phq" value="oui"> Oui
+          <input type="radio" name="phq" value="non"> Non
+        </td>
+      </tr>
+      <tr>
+        <th>Situation professionnelle du porteur de projet</th>
+        <td>
+          <select id="statut">
+            <option value="default">Choisissez le statut</option>
+            <option value="entrepreneur">Chef d'entreprise - Indépendant</option>
+            <option value="ft">Demandeur d'emploi</option>
+            <option value="inactif">Inactif</option>
+            <option value="salarie">Salarié</option>
+          </select>
+        </td>
+      </tr>
+      <tr id="indemnise" style="display: none;">
+        <th>Êtes-vous indemnisé ?</th>
+        <td>
+          <input type="radio" name="indemnise" value="oui"> Oui
+          <input type="radio" name="indemnise" value="non"> Non
+        </td>
+      </tr>
+      <tr id="franc_travail" style="display: none;">
+        <th>Inscrit à France Travail depuis plus de 24 mois ?</th>
+        <td>
+          <input type="radio" name="franc_travail" value="oui"> Oui
+          <input type="radio" name="franc_travail" value="non"> Non
+        </td>
+      </tr>
+      
+      <tr id="aides">
+        <th>Aides</th>
+        <td id="aidesList"></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th>Total des aides</th>
+        <td id="totalAides">0€</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,105 @@
+/* Styles généraux */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #ffffff; /* Fond blanc */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Table */
+table {
+  width: 80%;
+  border-collapse: collapse;
+  margin: 30px auto;
+  background-color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border: 2px solid #000000; /* Contours noirs */
+}
+
+/* Titres */
+h1 {
+  font-family: 'Brush Script MT', cursive;
+  font-size: 2rem;
+  color: black;
+}
+
+h2 {
+  font-style: italic;
+  font-size: 1.4rem;
+  color: #004085; /* Bleu professionnel */
+}
+
+/* En-tête du tableau */
+th {
+  background-color: #004085; /* Bleu professionnel */
+  color: white;
+  padding: 15px;
+  text-align: left;
+  border: 2px solid #000000; /* Contours noirs */
+}
+
+/* Cellules */
+td {
+  padding: 15px;
+  border: 2px solid #000000; /* Contours noirs */
+}
+
+/* Labels */
+label {
+  font-weight: bold;
+  color: #000000; /* Texte noir */
+}
+
+/* Champs de texte et sélecteurs */
+input[type="text"],
+input[type="password"],
+select,
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #000000; /* Contours noirs */
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+/* Boutons radio et cases à cocher */
+input[type="radio"],
+input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+/* Section des boutons */
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+/* Boutons */
+button {
+  background-color: #004085; /* Bleu professionnel */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #002855; /* Bleu foncé */
+}
+
+button.cancel {
+  background-color: gray;
+}
+
+button.cancel:hover {
+  background-color: darkgray;
+}
