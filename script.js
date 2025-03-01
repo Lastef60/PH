@@ -46,6 +46,12 @@ document.addEventListener("DOMContentLoaded", function () {
     let montantIOS = 0;
     let montantBPI = 0;
 
+    if (projet !== "reprise") {
+      document.getElementById("transmission").style.display = "none";
+    } else {
+      document.getElementById("transmission").style.display = "table-row";
+    }
+
     if (projet && nbSal) {
       if (projet === "creation") {
         montantIOS = nbSal === "0-3" ? 5500 : nbSal === "4-10" ? 10000 : 16700;
@@ -60,7 +66,13 @@ document.addEventListener("DOMContentLoaded", function () {
       } else if (projet === "developpement") {
         montantIOS = nbSal === "0-3" ? 5500 : nbSal === "4-10" ? 10000 : 16700;
         montantBPI = nbSal === "0-3" ? 2500 : nbSal === "4-10" ? 5000 : 8300;
+      } else if (projet === "croissance") {
+        aidesList.innerHTML = "<strong>Contacter Initiative Oise Sud</strong>";
+        totalAides.textContent = "N/A";
+        return;
       }
+
+
 
       ajouterAide("PH IOS", montantIOS);
       ajouterAide("BPI", montantBPI);
