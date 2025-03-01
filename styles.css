@@ -135,6 +135,13 @@ button.cancel:hover {
     justify-content: flex-start;
   }
 
+  /* Table */
+  table {
+    width: 90vw;  /* Utilisation dynamique de la largeur de l'écran */
+    max-width: 1200px; /* Limite la largeur du tableau sur les très grands écrans */
+    margin: 30px auto; /* Garde le tableau centré */
+  }
+
   .button-group {
     justify-content: flex-start; /* Les boutons alignés à gauche sur les grands écrans */
     gap: 20px;
@@ -144,17 +151,9 @@ button.cancel:hover {
     width: auto; /* Les boutons retrouvent leur taille normale sur grands écrans */
   }
 
-  table {
-    width: 80%; /* Réduire la largeur de la table sur grands écrans */
-  }
 
   caption {
     font-size: 2rem; /* Taille de police plus grande sur grands écrans */
   }
 
-  #logo {
-    width: 150px; /* Augmenter la taille du logo sur les grands écrans */
-    top: 20px; /* Décalage pour éviter le bord de l'écran */
-    left: 20px; /* Décalage pour éviter le bord de l'écran */
-  }
-}
+ }
