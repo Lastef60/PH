@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const elements = {
     projets: document.querySelectorAll('input[name="projet"]'),
     salaries: document.querySelectorAll('input[name="salaries"]'),
-    transmission: document.querySelectorAll('input[name="transmission"]'),
     communaute: document.getElementById("communaute_commune"),
     age: document.querySelectorAll('input[name="age"]'),
     apport: document.querySelectorAll('input[name="apport"]'),
@@ -13,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
     totalAides: document.getElementById("totalAides"),
     messageAideRow: document.getElementById("message-aide"),
     explicationAide: document.getElementById("explication-aide"),
+    transmissionRow: document.getElementById("transmission")  // Nouvelle référence à la ligne de transmission
   };
 
   let aides = [];
@@ -50,35 +50,69 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const projet = document.querySelector('input[name="projet"]:checked')?.value;
     const nbSal = document.querySelector('input[name="salaries"]:checked')?.value;
-    const estTransmission = document.querySelector('input[name="transmission"]:checked')?.value === "oui";
     const communauteValue = elements.communaute.value;
     const jeune = document.querySelector('input[name="age"]:checked')?.value === "18-29";
     const petitApport = document.querySelector('input[name="apport"]:checked')?.value === "0-10000";
     const enQPV = document.querySelector('input[name="phq"]:checked')?.value === "oui";
     const estIndemnise = document.querySelector('input[name="indemnise"]:checked')?.value === "oui";
     const inscritFT24 = document.querySelector('input[name="franc_travail"]:checked')?.value === "oui";
+    const transmission = document.querySelector('input[name="transmission"]:checked')?.value; // Nouvelle variable pour la transmission
 
-    let montantIOS = 0, montantBPI = 0;
+    let montantIOS = 0,
+      montantBPI = 0;
 
-    if (projet) {
-      if (projet === "reprise") {
-        document.getElementById("transmission").style.display = "table-row";
-        montantIOS = [4000, 7500, 12500][["0-3", "4-10", ">10"].indexOf(nbSal)] || 0;
-      } else if (projet === "croissance") {
-        elements.aidesList.innerHTML = "<strong>Contacter Initiative Oise Sud</strong>";
-        elements.totalAides.textContent = "N/A";
-        return;
-      } else {
-        montantIOS = [5500, 10000, 16700][["0-3", "4-10", ">10"].indexOf(nbSal)] || 0;
+    // Vérification pour afficher la question "Transmission" si projet = "reprise"
+    if (projet === "reprise") {
+      elements.transmissionRow.style.display = "table-row";  // Affichage de la question de transmission
+    } else {
+      elements.transmissionRow.style.display = "none";  // Masquer la question de transmission si ce n'est pas une reprise
+    }
+
+      // Masquer la question indemnisation si le porteur de projet est en QPV
+  if (enQPV) {
+    document.getElementById("indemnise").style.display = "none";
+  } else {
+    document.getElementById("indemnise").style.display = "table-row";
+  }
+
+    if (projet === "creation") {
+      const montantCreation = {
+        "0-3": { ios: 5500, bpi: 2500 },
+        "4-10": { ios: 10000, bpi: 5000 },
+        "11+": { ios: 16700, bpi: 8300 }
+      };
+
+      if (montantCreation[nbSal]) {
+        montantIOS = montantCreation[nbSal].ios;
+        montantBPI = montantCreation[nbSal].bpi;
       }
-      montantBPI = montantIOS;
-      ajouterAide("PH IOS", montantIOS);
-      ajouterAide("BPI", montantBPI);
+    } else if (projet === "reprise") {
+      const montantReprise = {
+        "0-3": { ios: 4000, bpi: 4000 },
+        "4-10": { ios: 7500, bpi: 7500 },
+        "11+": { ios: 12500, bpi: 12500 }
+      };
 
-      if (estTransmission) {
-        ajouterAide("Fonds Prêt Transmission", montantIOS * 0.5);
+      if (montantReprise[nbSal]) {
+        montantIOS = montantReprise[nbSal].ios;
+        montantBPI = montantReprise[nbSal].bpi;
+      }
+
+      // Ajout de l'aide de transmission si la réponse est "oui"
+      if (transmission === "oui") {
+        const montantTransmission = 0.5 * (montantIOS + montantBPI);
+        ajouterAide("Transmission", montantTransmission);
       }
     }
+
+    if (projet === "croissance") {
+      elements.aidesList.innerHTML = "<strong>Merci de contacter Initiative Oise Sud au 03.44.24.05.63 ou nogentsuroise@initiative-oise.fr</strong>";
+      elements.totalAides.textContent = "N/A";
+      return;
+    }
+
+    ajouterAide("PH IOS", montantIOS);
+    ajouterAide("PH BPI", montantBPI);
 
     if (communauteValue === "CCAC") {
       ajouterAide("Solicitation Bonification CCAC", 0.7 * (montantIOS + montantBPI));
@@ -92,14 +126,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (enQPV) {
-      ajouterAide("Prêt Honneur BPI Quartier", 7000);
-      afficherMessageAide("Pour beneficier de ce prêt, la caution personnelle et solidaire sur le prêt bancaire ne doit pas exceder 50% fais et accesoires inclus");
+      ajouterAide("PH BPI Quartier", 7000);
+      afficherMessageAide(
+        "Pour bénéficier de ce prêt, la caution personnelle et solidaire sur le prêt bancaire ne doit pas excéder 50% frais et accessoires inclus"
+      );
     } else if (elements.statut.value === "ft") {
       document.getElementById("indemnise").style.display = "table-row";
       elements.francTravailRow.style.display = estIndemnise ? "none" : "table-row";
       if (estIndemnise || inscritFT24) {
-        ajouterAide("PHS", 7000);
-        afficherMessageAide("Pour beneficier de ce prêt, la caution personnelle et solidaire sur le prêt bancaire ne doit pas exceder 50% fais et accesoires inclus");
+        ajouterAide("PH BPI Solidaire", 7000);
+        afficherMessageAide(
+          "Pour bénéficier de ce prêt, la caution personnelle et solidaire sur le prêt bancaire ne doit pas excéder 50% frais et accessoires inclus"
+        );
       }
     } else {
       document.getElementById("indemnise").style.display = "none";
@@ -114,7 +152,7 @@ document.addEventListener("DOMContentLoaded", function () {
     elements.francTravailRow.style.display = "none";
   });
 
-  document.querySelectorAll("input, select").forEach(el => el.addEventListener("change", verifierAides));
+  document.querySelectorAll("input, select").forEach((el) => el.addEventListener("change", verifierAides));
 
   elements.francTravailRow.style.display = "none";
   verifierAides();
