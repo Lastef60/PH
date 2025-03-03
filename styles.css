@@ -13,7 +13,7 @@ body {
 
 /* Logo */
 #logo {
-  width: 100px;  /* Largeur du logo */
+  width: 90px;  /* Réduire la largeur du logo */
   height: auto; /* Hauteur automatique pour garder les proportions */
   position: fixed; /* Positionner l'image de façon fixe par rapport à l'écran */
   top: 10px;  /* Un peu d'espace du haut */
@@ -21,15 +21,17 @@ body {
   z-index: 1000; /* S'assurer que le logo est au-dessus des autres éléments */
 }
 
+
 /* Table */
 table {
-  width: 100%;  /* Table occupe toute la largeur */
-  max-width: 800px; /* Limiter la largeur pour les écrans larges */
+  width: 800px;  /* Fixer la largeur du tableau */
+  max-width: 800px; /* Ne pas dépasser 800px */
   border-collapse: collapse;
   margin: 30px auto;
   background-color: white;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   border: 2px solid #000000; /* Contours noirs */
+  table-layout: fixed; /* Table avec largeur fixe */
 }
 
 /* Titre du tableau */
@@ -61,12 +63,17 @@ th {
   padding: 15px;
   text-align: left;
   border: 2px solid #000000; /* Contours noirs */
+  word-wrap: break-word; /* S'assurer que le texte dans l'en-tête peut se découper si nécessaire */
+  white-space: normal; /* Autoriser le texte à s'étirer sur plusieurs lignes */
 }
 
 /* Cellules */
 td {
   padding: 15px;
   border: 2px solid #000000; /* Contours noirs */
+  word-wrap: break-word; /* S'assurer que le texte peut se couper en plusieurs lignes si nécessaire */
+  height: auto; /* La hauteur des cellules s'adapte en fonction du contenu */
+  white-space: normal; /* Le texte peut s'étirer sur plusieurs lignes */
 }
 
 /* Labels */
@@ -147,12 +154,26 @@ button.cancel:hover {
     justify-content: flex-start;
   }
 
-  /* Table */
-  table {
-    width: 90vw;  /* Utilisation dynamique de la largeur de l'écran */
-    max-width: 1200px; /* Limite la largeur du tableau sur les très grands écrans */
-    margin: 30px auto; /* Garde le tableau centré */
-  }
+ /* Table */
+table {
+  width: 100%;  /* Table occupe toute la largeur disponible */
+  max-width: 1000px; /* Augmenter la largeur maximale à 1000px */
+  border-collapse: collapse;
+  margin: 30px auto;
+  background-color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border: 2px solid #000000; /* Contours noirs */
+}
+
+/* Titre du tableau */
+caption {
+  margin: 10px 0 20px; /* Marge en haut et en bas */
+  padding: 25px;
+  font-size: 1.6rem; /* Ajuster la taille sur mobile */
+  font-weight: bold;
+  text-align: center; /* Centrer le texte */
+  white-space: nowrap; /* Empêche le texte de se couper et le force à être sur une seule ligne */
+}
 
   .button-group {
     justify-content: flex-start; /* Les boutons alignés à gauche sur les grands écrans */
@@ -163,9 +184,7 @@ button.cancel:hover {
     width: auto; /* Les boutons retrouvent leur taille normale sur grands écrans */
   }
 
-
   caption {
     font-size: 2rem; /* Taille de police plus grande sur grands écrans */
   }
-
- }
+}
